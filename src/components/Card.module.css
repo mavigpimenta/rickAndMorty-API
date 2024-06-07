@@ -1,0 +1,21 @@
+.statusBeleza {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background-color: green;
+  }
+
+  .statusNaoBeleza {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background-color: red;
+  }
+
+  .statusQuaseBeleza {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background-color: yellow;
+  }
+
