@@ -5,12 +5,24 @@ import produtos from './constants/produtos.json'
 import { api } from "./api/rmApi"
 import style from './App.module.css'
 
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup
+} from 'react-leaflet'
+
+import "leaflet-defaulticon-compatibility";
+import 'leaflet/dist/leaflet.css';
+import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
+
 function App() {
   const [show, setShow] = useState("")
   const [data, setData] = useState([])
   const [page, setPage] = useState("1")
   const [name, setName] = useState("")
-
+  const position = [-25.4249647, -49.272303]
+  
 
   useEffect(() => {
     api.get(`/character/?page=${page}&name=${name}`).then((response) => {
@@ -26,8 +38,6 @@ function App() {
     })
   }, [page, name])
 
-
-  console.log(name, page, "bjkbybhyjkgbykgbyugb")
   return (
     <>
     <div className={style.wrapBtns}>
@@ -72,12 +82,22 @@ function App() {
      {show === "map" &&
         <>
       <h2>Mapa</h2>
-          <div>
-              mapa aqui
+          <div style={{alignItems: "center", justifyContent: "center"}}>
+            <MapContainer center={position} zoom={13} scrollWheelZoom={false} style={{width: "500px", height: "400px"}}>
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker position={position}>
+                <Popup>
+                  <a href="https://maps.app.goo.gl/WgqEuKXVENpRpABAA" target='_blank'>Abrir google maps</a>
+                </Popup>
+              </Marker>
+            </MapContainer>
           </div>
          </>
       }
-    </div>
+      </div>
     </>
   )
 }
